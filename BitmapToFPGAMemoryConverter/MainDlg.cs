@@ -59,11 +59,32 @@ namespace BitmapToFPGAMemoryConverter
                 string[] parts = dlgSaveExportedFile.FileName.Split('.');
                 if (parts.Last().ToUpper() == "COE")
                 {
-                    ExportBitmapCOE(bmp, dlgSaveExportedFile.FileName);
+                    if (cbTiled.Checked)
+                    {
+                        if (((imgPreview.Width % tbTileWidth.Value) != 0) || ((imgPreview.Height % tbTileHeight.Value) != 0))
+                        {
+                            MessageBox.Show("Tiling not possible if image width/height is not a multiple of tile width/height !", "Export error");
+                        }
+                        else
+                        {
+                            for (int h = 0; h < imgPreview.Height / tbTileHeight.Value; h++)
+                            {
+                                for (int w = 0; w < imgPreview.Width / tbTileWidth.Value; w++)
+                                {
+                                    string FileName = string.Format("{0}_W{1}_H{2}", dlgSaveExportedFile.FileName, w, h);
+                                    ExportBitmapCOE((Bitmap)imgPreview.Image, FileName, w * (int)tbTileWidth.Value, h * (int)tbTileHeight.Value, (int)tbTileWidth.Value, (int)tbTileHeight.Value);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ExportBitmapCOE((Bitmap)imgPreview.Image, dlgSaveExportedFile.FileName, 0, 0, imgPreview.Width, imgPreview.Height);
+                    }
                 }
                 else if (parts.Last().ToUpper() == "HEX")
                 {
-                    ExportBitmapHEX(bmp, dlgSaveExportedFile.FileName);
+                    ExportBitmapHEX((Bitmap)imgPreview.Image, dlgSaveExportedFile.FileName);
                 } else
                 {
                     MessageBox.Show("Unknown target file format", "Error");
@@ -119,10 +140,10 @@ namespace BitmapToFPGAMemoryConverter
         /// </summary>
         /// <param name="bmp">Bitmap object to export</param>
         /// <param name="outFileName">Filename of the object to generate</param>
-        private void ExportBitmapCOE(Bitmap bmp, string outFileName)
+        private void ExportBitmapCOE(Bitmap bmp, string outFileName, int xoffs, int yoffs, int width, int height)
         {
             pbExport.Minimum = 0;
-            pbExport.Maximum = bmp.Width-1;
+            pbExport.Maximum = height;
             pbExport.Value = 0;
             pbExport.Visible = true;
             using (StreamWriter outputFile = new StreamWriter(outFileName))
@@ -134,11 +155,11 @@ namespace BitmapToFPGAMemoryConverter
                 byte numBitsG = (byte)tbResolutionGreen.Value;
                 byte numBitsB = (byte)tbResolutionBlue.Value;
 
-                for (int row = 0; row < bmp.Height; row++)
+                for (int row = 0; row < height; row++)
                 { 
-                    for (int col = 0; col < bmp.Width; col++)
+                    for (int col = 0; col < width; col++)
                     {
-                        Color clr = bmp.GetPixel(col, row);
+                        Color clr = bmp.GetPixel(xoffs+col, yoffs+row);
                         ulong clrword = CreateTargetWord(clr.R, clr.G, clr.B, numBitsR, numBitsG, numBitsB);
                         string rowstring = string.Format("{0:x}", clrword);
                         if ((row != bmp.Height - 1) || (col != bmp.Width - 1))
@@ -213,18 +234,6 @@ namespace BitmapToFPGAMemoryConverter
         }
 
 
-        private void tbWIdth_ValueChanged(object sender, EventArgs e)
-        {
-            if (cbAspectRatio.Checked && !bAvoidUpdateWidth && (orgImgWidth != 0) && (orgImgHeight != 0))
-            {
-                bAvoidUpdateWidth = true;
-                tbHeight.Value = tbWIdth.Value * orgImgHeight / orgImgWidth;
-                bAvoidUpdateWidth = false;
-                UpdateImage();
-            }
-
-        }
-
         private void UpdateImage()
         {
             imgPreview.Image = new Bitmap(ResizeImage(orgImage, (int)tbWIdth.Value, (int)tbHeight.Value));
@@ -271,9 +280,36 @@ namespace BitmapToFPGAMemoryConverter
             }
         }
 
+        private void cbTiled_CheckedChanged(object sender, EventArgs e)
+        {
+            tbTileWidth.Enabled = cbTiled.Checked;
+            tbTileHeight.Enabled = cbTiled.Checked;
+        }
+
+
+        private void tbWIdth_ValueChanged(object sender, EventArgs e)
+        {
+            if (!cbAspectRatio.Checked)
+            {
+                UpdateImage();
+            } else
+            if (!bAvoidUpdateWidth && (orgImgWidth != 0) && (orgImgHeight != 0))
+            {
+                bAvoidUpdateWidth = true;
+                tbHeight.Value = tbWIdth.Value * orgImgHeight / orgImgWidth;
+                bAvoidUpdateWidth = false;
+                UpdateImage();
+            }
+
+        }
+
         private void tbHeight_ValueChanged(object sender, EventArgs e)
         {
-            if (cbAspectRatio.Checked && !bAvoidUpdateHeight && (orgImgWidth != 0) && (orgImgHeight != 0))
+            if (!cbAspectRatio.Checked)
+            {
+                UpdateImage();
+            } else
+            if (!bAvoidUpdateHeight && (orgImgWidth != 0) && (orgImgHeight != 0))
             {
                 bAvoidUpdateHeight = true;
                 tbWIdth.Value = tbHeight.Value * orgImgWidth / orgImgHeight;
