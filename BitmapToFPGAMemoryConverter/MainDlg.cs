@@ -67,9 +67,9 @@ namespace BitmapToFPGAMemoryConverter
                         }
                         else
                         {
-                            for (int h = 0; h < imgPreview.Height / tbTileHeight.Value; h++)
+                            for (int h = 0; h < (int)tbHeight.Value / tbTileHeight.Value; h++)
                             {
-                                for (int w = 0; w < imgPreview.Width / tbTileWidth.Value; w++)
+                                for (int w = 0; w < (int)tbWIdth.Value / tbTileWidth.Value; w++)
                                 {
                                     string FileName = string.Format("{0}_W{1}_H{2}", dlgSaveExportedFile.FileName, w, h);
                                     ExportBitmapCOE((Bitmap)imgPreview.Image, FileName, w * (int)tbTileWidth.Value, h * (int)tbTileHeight.Value, (int)tbTileWidth.Value, (int)tbTileHeight.Value);
@@ -79,7 +79,7 @@ namespace BitmapToFPGAMemoryConverter
                     }
                     else
                     {
-                        ExportBitmapCOE((Bitmap)imgPreview.Image, dlgSaveExportedFile.FileName, 0, 0, imgPreview.Width, imgPreview.Height);
+                        ExportBitmapCOE((Bitmap)imgPreview.Image, dlgSaveExportedFile.FileName, 0, 0, (int)tbWIdth.Value, (int)tbHeight.Value);
                     }
                 }
                 else if (parts.Last().ToUpper() == "HEX")
@@ -148,7 +148,7 @@ namespace BitmapToFPGAMemoryConverter
             pbExport.Visible = true;
             using (StreamWriter outputFile = new StreamWriter(outFileName))
             {
-                outputFile.WriteLine("memory_initialization_radix=16");
+                outputFile.WriteLine("memory_initialization_radix=16;");
                 outputFile.WriteLine("memory_initialization_vector=");
 
                 byte numBitsR = (byte)tbResolutionRed.Value;
@@ -164,6 +164,8 @@ namespace BitmapToFPGAMemoryConverter
                         string rowstring = string.Format("{0:x}", clrword);
                         if ((row != bmp.Height - 1) || (col != bmp.Width - 1))
                             rowstring += ",";
+                        else
+                            rowstring += ";";
                         outputFile.WriteLine(rowstring);
                     }
                     pbExport.Value = row;
@@ -208,8 +210,10 @@ namespace BitmapToFPGAMemoryConverter
             float ratioY = (float)Height / (float)orgImgHeight;
             float ratio = Math.Min(ratioX, ratioY);
 
-            int newWidth = (int)(orgImgWidth * ratio);
-            int newHeight = (int)(orgImgHeight * ratio);
+            int newWidth = Width;
+            int newHeight = Height;
+//            int newWidth = (int)(orgImgWidth * ratio);
+//            int newHeight = (int)(orgImgHeight * ratio);
 
             Bitmap newImg = new Bitmap(newWidth, newHeight, PixelFormat.Format24bppRgb);
 
@@ -229,6 +233,9 @@ namespace BitmapToFPGAMemoryConverter
                     newImg.SetPixel(col, row, Color.FromArgb(0, gammaCorrect(clr.R, gamma, 8, 8), gammaCorrect(clr.G, gamma, 8, 8), gammaCorrect(clr.B, gamma, 8, 8)));
                 }
             }
+
+            tbWIdth.Value = newWidth;
+            tbHeight.Value = newHeight;
 
             return newImg;
         }
