@@ -90,7 +90,7 @@
             // tbBitmapFile
             // 
             this.tbBitmapFile.Location = new System.Drawing.Point(69, 18);
-            this.tbBitmapFile.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.tbBitmapFile.Margin = new System.Windows.Forms.Padding(1);
             this.tbBitmapFile.Name = "tbBitmapFile";
             this.tbBitmapFile.Size = new System.Drawing.Size(310, 20);
             this.tbBitmapFile.TabIndex = 1;
@@ -98,7 +98,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(385, 15);
-            this.button1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.button1.Margin = new System.Windows.Forms.Padding(1);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(57, 21);
             this.button1.TabIndex = 2;
@@ -109,7 +109,7 @@
             // imgPreview
             // 
             this.imgPreview.Location = new System.Drawing.Point(69, 54);
-            this.imgPreview.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.imgPreview.Margin = new System.Windows.Forms.Padding(1);
             this.imgPreview.Name = "imgPreview";
             this.imgPreview.Size = new System.Drawing.Size(308, 126);
             this.imgPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -147,7 +147,7 @@
             // tbResolutionRed
             // 
             this.tbResolutionRed.Location = new System.Drawing.Point(59, 23);
-            this.tbResolutionRed.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.tbResolutionRed.Margin = new System.Windows.Forms.Padding(1);
             this.tbResolutionRed.Maximum = new decimal(new int[] {
             16,
             0,
@@ -190,7 +190,7 @@
             // tbResolutionGreen
             // 
             this.tbResolutionGreen.Location = new System.Drawing.Point(59, 42);
-            this.tbResolutionGreen.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.tbResolutionGreen.Margin = new System.Windows.Forms.Padding(1);
             this.tbResolutionGreen.Maximum = new decimal(new int[] {
             16,
             0,
@@ -223,7 +223,7 @@
             // tbResolutionBlue
             // 
             this.tbResolutionBlue.Location = new System.Drawing.Point(59, 60);
-            this.tbResolutionBlue.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.tbResolutionBlue.Margin = new System.Windows.Forms.Padding(1);
             this.tbResolutionBlue.Maximum = new decimal(new int[] {
             16,
             0,
@@ -246,7 +246,7 @@
             // btnExport
             // 
             this.btnExport.Location = new System.Drawing.Point(201, 291);
-            this.btnExport.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnExport.Margin = new System.Windows.Forms.Padding(1);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(87, 22);
             this.btnExport.TabIndex = 12;
@@ -258,7 +258,6 @@
             // 
             this.dlgSaveExportedFile.DefaultExt = "coe";
             this.dlgSaveExportedFile.Filter = "XILINX Memory (*.coe)|*.coe|Intel HEX File (*.hex)|*.hex|All Files (*.*)|*.*";
-            this.dlgSaveExportedFile.RestoreDirectory = true;
             this.dlgSaveExportedFile.Title = "Select Output File";
             // 
             // groupBox1
@@ -270,9 +269,9 @@
             this.groupBox1.Controls.Add(this.tbResolutionBlue);
             this.groupBox1.Controls.Add(this.tbResolutionGreen);
             this.groupBox1.Location = new System.Drawing.Point(69, 194);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(1);
             this.groupBox1.Size = new System.Drawing.Size(123, 91);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
@@ -286,9 +285,9 @@
             this.groupBox2.Controls.Add(this.tbWIdth);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Location = new System.Drawing.Point(201, 194);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(1);
             this.groupBox2.Size = new System.Drawing.Size(132, 91);
             this.groupBox2.TabIndex = 14;
             this.groupBox2.TabStop = false;
@@ -300,7 +299,7 @@
             this.cbAspectRatio.Checked = true;
             this.cbAspectRatio.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbAspectRatio.Location = new System.Drawing.Point(12, 61);
-            this.cbAspectRatio.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.cbAspectRatio.Margin = new System.Windows.Forms.Padding(1);
             this.cbAspectRatio.Name = "cbAspectRatio";
             this.cbAspectRatio.Size = new System.Drawing.Size(109, 17);
             this.cbAspectRatio.TabIndex = 4;
@@ -310,7 +309,7 @@
             // tbHeight
             // 
             this.tbHeight.Location = new System.Drawing.Point(69, 43);
-            this.tbHeight.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.tbHeight.Margin = new System.Windows.Forms.Padding(1);
             this.tbHeight.Maximum = new decimal(new int[] {
             4096,
             0,
@@ -344,7 +343,7 @@
             // tbWIdth
             // 
             this.tbWIdth.Location = new System.Drawing.Point(69, 23);
-            this.tbWIdth.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.tbWIdth.Margin = new System.Windows.Forms.Padding(1);
             this.tbWIdth.Maximum = new decimal(new int[] {
             4096,
             0,
@@ -381,9 +380,9 @@
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.cbResizeQuality);
             this.groupBox3.Location = new System.Drawing.Point(343, 194);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(1);
             this.groupBox3.Size = new System.Drawing.Size(137, 92);
             this.groupBox3.TabIndex = 15;
             this.groupBox3.TabStop = false;
@@ -398,7 +397,7 @@
             0,
             65536});
             this.tbGamma.Location = new System.Drawing.Point(57, 51);
-            this.tbGamma.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.tbGamma.Margin = new System.Windows.Forms.Padding(1);
             this.tbGamma.Maximum = new decimal(new int[] {
             100,
             0,
@@ -441,7 +440,7 @@
             "HighQualityBilinear",
             "HighQualityBicubic"});
             this.cbResizeQuality.Location = new System.Drawing.Point(10, 22);
-            this.cbResizeQuality.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.cbResizeQuality.Margin = new System.Windows.Forms.Padding(1);
             this.cbResizeQuality.Name = "cbResizeQuality";
             this.cbResizeQuality.Size = new System.Drawing.Size(119, 21);
             this.cbResizeQuality.TabIndex = 0;
@@ -451,7 +450,7 @@
             // pbExport
             // 
             this.pbExport.Location = new System.Drawing.Point(2, 0);
-            this.pbExport.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.pbExport.Margin = new System.Windows.Forms.Padding(1);
             this.pbExport.Name = "pbExport";
             this.pbExport.Size = new System.Drawing.Size(510, 4);
             this.pbExport.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
@@ -590,7 +589,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tbBitmapFile);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.Margin = new System.Windows.Forms.Padding(1);
             this.Name = "MainDlg";
             this.Text = "ImageConverter";
             ((System.ComponentModel.ISupportInitialize)(this.imgPreview)).EndInit();

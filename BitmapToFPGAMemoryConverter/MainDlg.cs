@@ -61,7 +61,7 @@ namespace BitmapToFPGAMemoryConverter
                 {
                     if (cbTiled.Checked)
                     {
-                        if (((imgPreview.Width % tbTileWidth.Value) != 0) || ((imgPreview.Height % tbTileHeight.Value) != 0))
+                        if (((imgPreview.Image.Width % tbTileWidth.Value) != 0) || ((imgPreview.Image.Height % tbTileHeight.Value) != 0))
                         {
                             MessageBox.Show("Tiling not possible if image width/height is not a multiple of tile width/height !", "Export error");
                         }
@@ -79,7 +79,7 @@ namespace BitmapToFPGAMemoryConverter
                     }
                     else
                     {
-                        ExportBitmapCOE((Bitmap)imgPreview.Image, dlgSaveExportedFile.FileName, 0, 0, (int)tbWIdth.Value, (int)tbHeight.Value);
+                        ExportBitmapCOE((Bitmap)imgPreview.Image, dlgSaveExportedFile.FileName, 0, 0, (int)imgPreview.Image.Width, (int)imgPreview.Image.Height);
                     }
                 }
                 else if (parts.Last().ToUpper() == "HEX")
@@ -155,15 +155,16 @@ namespace BitmapToFPGAMemoryConverter
                 byte numBitsG = (byte)tbResolutionGreen.Value;
                 byte numBitsB = (byte)tbResolutionBlue.Value;
 
+                System.Diagnostics.Debug.WriteLine("****Exporting in W={0} : H={1}", width, height);
                 for (int row = 0; row < height; row++)
                 { 
                     for (int col = 0; col < width; col++)
                     {
                         Color clr = bmp.GetPixel(xoffs+col, yoffs+row);
                         ulong clrword = CreateTargetWord(clr.R, clr.G, clr.B, numBitsR, numBitsG, numBitsB);
-                        string rowstring = string.Format("{0:x}", clrword);
+                        string rowstring = string.Format("{0:X6}", clrword);
                         if ((row != bmp.Height - 1) || (col != bmp.Width - 1))
-                            rowstring += ",";
+                            rowstring += ","; // " + col.ToString();
                         else
                             rowstring += ";";
                         outputFile.WriteLine(rowstring);
@@ -234,8 +235,10 @@ namespace BitmapToFPGAMemoryConverter
                 }
             }
 
-            tbWIdth.Value = newWidth;
-            tbHeight.Value = newHeight;
+            tbWIdth.Value = newImg.Width;
+            tbHeight.Value = newImg.Height;
+
+            System.Diagnostics.Debug.WriteLine("****Resized image to W={0} : H={1}", newImg.Width, newImg.Height);
 
             return newImg;
         }
